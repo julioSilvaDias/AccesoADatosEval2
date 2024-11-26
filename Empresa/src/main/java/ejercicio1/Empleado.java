@@ -2,7 +2,7 @@ package ejercicio1;
 
 import java.util.Objects;
 
-public class Empleado {
+public class Empleado extends Departamento{
 	int emp_no;
 	String apellido;
 	String oficio;

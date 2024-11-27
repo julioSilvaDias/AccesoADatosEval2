@@ -1,0 +1,26 @@
+Delimiter //
+
+CREATE PROCEDURE `departamentos`()
+begin
+select * from departamentos;
+
+end;
+//
+
+CREATE PROCEDURE `empleDepart`(numDep int)
+begin
+
+SELECT apellido, oficio, salario FROM empleados WHERE dept_no = numDep;
+
+end;
+//
+
+CREATE PROCEDURE `empleSalMax`()
+begin
+
+SELECT apellido, salario, dnombre FROM empleados 
+join departamentos on empleados.dept_no = departamentos.dept_no
+WHERE salario = (select max(salario) from empleados);
+
+end;
+//

@@ -17,7 +17,7 @@ public class Ejercicio1 {
 		int opcion = -1;
 
 		try {
-			conexion = DriverManager.getConnection("jdbc:mysql://54.90.239.12/ejercicioADT?useSSL=false", "root",
+			conexion = DriverManager.getConnection("jdbc:mysql://52.90.133.53/ejercicioADT?useSSL=false", "root",
 					"Elorrieta00");
 
 			do {

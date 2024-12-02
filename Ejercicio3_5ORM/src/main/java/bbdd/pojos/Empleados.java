@@ -1,5 +1,5 @@
-package primero;
-// Generated 2 dic 2024, 16:17:27 by Hibernate Tools 6.5.1.Final
+package bbdd.pojos;
+// Generated 2 dic 2024, 16:58:03 by Hibernate Tools 6.5.1.Final
 
 import java.sql.Date;
 

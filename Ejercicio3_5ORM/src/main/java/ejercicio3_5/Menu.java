@@ -1,13 +1,20 @@
 package ejercicio3_5;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import bbdd.GestorDepartamento;
 import bbdd.GestorEmpleado;
+import bbdd.pojos.Departamentos;
+import bbdd.pojos.Empleados;
 
 public class Menu {
 	private boolean fin = false;
+	private GestorEmpleado gestorEmpleado = new GestorEmpleado();
+	private GestorDepartamento gestorDepartamento = new GestorDepartamento();
+
 	public void mostrarMenu() {
-		
+
 		Scanner teclado = new Scanner(System.in);
 		int opcion = -1;
 
@@ -33,7 +40,6 @@ public class Menu {
 				System.out.println(".12- Eliminar empleados de Madrid");
 				System.out.println(".13- Eliminar empleado de Contabilidad");
 
-
 				System.out.println("");
 				opcion = teclado.nextInt();
 
@@ -50,45 +56,80 @@ public class Menu {
 		}
 	}
 
-	private void selector(int opcion){
+	private void selector(int opcion) {
 		switch (opcion) {
 		case 0:
 			fin = true;
 			System.out.println("Programa finalizado.");
 			break;
+			
 		case 1:
 			getEmpleDepar10();
 			break;
+			
 		case 2:
-
+			getEmpleMaxSal();
+			break;
+			
 		case 3:
-		
+			getDeptContaInve();
+			break;
+			
 		case 4:
+			
 
 		case 5:
 
 		case 6:
-			
+
 		case 7:
 
 		case 8:
 
 		case 9:
-			
+
 		case 10:
 
 		case 11:
 
 		case 12:
-		
+
 		case 13:
 
 		}
 	}
-	
+
+	private void getDeptContaInve() {
+		Departamentos dept1 = new Departamentos();
+		Departamentos dept2 = new Departamentos();
+		dept1.setDnombre("CONTABILIDAD");
+		dept2.setDnombre("INVESTIGACION");
+		
+		ArrayList<Departamentos> departs = gestorDepartamento.getDepartContaInve(dept1, dept2);
+	}
+
+	private void getEmpleMaxSal() {
+		Empleados empleado = gestorEmpleado.getEmpleMaxSal();
+		mostrarEmpleado(empleado);
+	}
+
 	private void getEmpleDepar10() {
-		GestorEmpleado gestorEmpleado = new GestorEmpleado();
-		gestorEmpleado.getEmpleDepar(10);
+		byte numDepart = 10;
+		Departamentos dept = new Departamentos();
+		dept.setDeptNo(numDepart);
+		ArrayList<Empleados> empleados = gestorEmpleado.getEmpleDepar(dept);
+		mostrarEmpleados(empleados);
+	}
+
+	private void mostrarEmpleados(ArrayList<Empleados> empleados) {
+		for (Empleados empleado : empleados) {
+			mostrarEmpleado(empleado);
+		}
+	}
+
+	private void mostrarEmpleado(Empleados empleado) {
+		System.out.println("");
+		System.out.println(empleado.toString());
 	}
 
 }

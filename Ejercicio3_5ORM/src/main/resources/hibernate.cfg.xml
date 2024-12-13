@@ -3,14 +3,15 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">Elorrieta0</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost/empleDepart</property>
+        <property name="hibernate.connection.password">Elorrieta00</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/empleDepart?useSSL=false</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.hbm2ddl.auto">none</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
         <property name="hibernate.search.autoregister_listeners">true</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
-        <mapping resource="primero/Empleados.hbm.xml"/>
-        <mapping resource="primero/Departamentos.hbm.xml"/>
+        
+        <mapping resource="Empleados.hbm.xml"/>
+        <mapping resource="Departamentos.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

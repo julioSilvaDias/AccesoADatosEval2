@@ -101,4 +101,11 @@ public class Empleados implements java.io.Serializable {
 		this.comision = comision;
 	}
 
+	@Override
+	public String toString() {
+		return " " + "empNo=" + empNo + "\n" + " departamentos= " + departamentos.getDeptNo() + "\n" + " apellido=" + apellido
+				+ "\n" + " oficio=" + oficio + "\n" + " dir=" + dir + "\n" + " fechaAlt=" + fechaAlt + "\n"
+				+ " salario=" + salario + "\n" + " comision=" + comision + "]";
+	}
+
 }

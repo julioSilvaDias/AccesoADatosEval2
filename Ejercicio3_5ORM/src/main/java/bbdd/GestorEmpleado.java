@@ -12,63 +12,94 @@ import bbdd.pojos.Empleados;
 
 public class GestorEmpleado {
 
-    public ArrayList<Empleados> getEmpleDepar(Departamentos departamentos) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = null;
-        ArrayList<Empleados> ret = null;
-        Transaction tx = null;
+	public ArrayList<Empleados> getEmpleDepartConta(String oficio, String dnombre) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = null;
+		ArrayList<Empleados> ret = null;
+		Transaction tx = null;
 
-        try {
-            session = sessionFactory.openSession();
-            tx = session.beginTransaction();
-            Departamentos dept = session.get(Departamentos.class, departamentos.getDeptNo());
+		try {
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
 
-            if (null != dept) {
-                ret = new ArrayList<Empleados>(dept.getEmpleadoses());
-            }
+			String hql = "FROM Empleados e " +
+		             "WHERE e.departamentos.deptNo = (SELECT d.deptNo FROM Departamentos d WHERE d.dnombre = :nombreDept) " +
+		             "AND e.oficio = :oficio";
 
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+			Query q = session.createQuery(hql);
+			q.setParameter("nombreDept", dnombre);
+			q.setParameter("oficio", oficio);
 
-        return ret;
-    }
+			ret = (ArrayList<Empleados>) q.list();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return ret;
+	}
 
-    public Empleados getEmpleMaxSal() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = null;
-        Empleados ret = null;
-        Transaction tx = null;
+	public ArrayList<Empleados> getEmpleDepar(Departamentos departamentos) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = null;
+		ArrayList<Empleados> ret = null;
+		Transaction tx = null;
 
-        try {
-            session = sessionFactory.openSession();
-            tx = session.beginTransaction();
+		try {
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			Departamentos dept = session.get(Departamentos.class, departamentos.getDeptNo());
 
-            String hql = "FROM Empleados e WHERE e.salario = (SELECT MAX(e2.salario) FROM Empleados e2)";
-            Query query = session.createQuery(hql);
+			if (null != dept) {
+				ret = new ArrayList<Empleados>(dept.getEmpleadoses());
+			}
 
-            ret = (Empleados) query.uniqueResult();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+		return ret;
+	}
 
-        return ret;
-    }
+	public Empleados getEmpleMaxSal() {
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = null;
+		Empleados ret = null;
+		Transaction tx = null;
+
+		try {
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+
+			String hql = "FROM Empleados e WHERE e.salario = (SELECT MAX(e2.salario) FROM Empleados e2)";
+			Query query = session.createQuery(hql);
+
+			ret = (Empleados) query.uniqueResult();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+
+		return ret;
+	}
 }

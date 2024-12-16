@@ -25,7 +25,7 @@ public class GestorDepartamento {
             Query q = session.createQuery(hql);
             
             q.setParameter("dept1", dept1.getDnombre());
-            q.setParameter("dept1", dept2.getDnombre());
+            q.setParameter("dept2", dept2.getDnombre());
             
             ret = (ArrayList<Departamentos>) q.list();
             
@@ -34,6 +34,6 @@ public class GestorDepartamento {
         	
         }
 		
-		return null;
+		return ret;
 	}
 }

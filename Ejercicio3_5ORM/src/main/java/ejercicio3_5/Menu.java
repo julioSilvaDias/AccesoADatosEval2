@@ -76,8 +76,9 @@ public class Menu {
 			break;
 			
 		case 4:
+			getEmpleDepartConta();
+			break;
 			
-
 		case 5:
 
 		case 6:
@@ -99,6 +100,16 @@ public class Menu {
 		}
 	}
 
+	private void getEmpleDepartConta() {
+		ArrayList<Empleados> emples = gestorEmpleado.getEmpleDepartConta("Director", "CONTABILIDAD");
+	    if (emples != null && !emples.isEmpty()) {
+	        mostrarEmpleados(emples);
+	    } else {
+	        System.out.println("No se encontraron empleados para el criterio especificado.");
+	    }
+		
+	}
+
 	private void getDeptContaInve() {
 		Departamentos dept1 = new Departamentos();
 		Departamentos dept2 = new Departamentos();
@@ -106,6 +117,18 @@ public class Menu {
 		dept2.setDnombre("INVESTIGACION");
 		
 		ArrayList<Departamentos> departs = gestorDepartamento.getDepartContaInve(dept1, dept2);
+		mostrarDeparts(departs);
+	}
+
+	private void mostrarDeparts(ArrayList<Departamentos> departs) {
+			for(Departamentos departamento : departs) {
+				mostrarDepart(departamento);
+			}
+	}
+
+	private void mostrarDepart(Departamentos departamento) {
+		System.out.println("");
+		System.out.println(departamento.toString());		
 	}
 
 	private void getEmpleMaxSal() {
